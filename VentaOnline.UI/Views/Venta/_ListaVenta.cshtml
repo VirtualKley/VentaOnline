@@ -1,0 +1,40 @@
+﻿@model List<VentaViewModel>
+<div style="height: 400px; overflow-y: scroll;">
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                @*<td>Id</td>*@
+                <td>Persona</td>
+                <td>Descripcion</td>
+                <td>Cantidad</td>
+                <td>Precio</td>
+                <td>Total</td>
+                <td>Fecha Venta</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in Model)
+            {
+                <tr>
+                    @*<td>@Html.DisplayFor(m => v.IdVenta)</td>*@
+                    <td>@Html.DisplayFor(m => v.Persona.Nombre)</td>
+                    <td>@Html.DisplayFor(m => v.Descripcion)</td>
+                    <td>@Html.DisplayFor(m => v.Cantidad)</td>
+                    <td>@((v.Total / v.Cantidad).ToString("C"))</td>
+                    <td>@((v.Total).ToString("C"))</td>
+                    <td>@(v.FechaVenta?.ToString("MM/dd/yyyy H:mm"))</td>
+                    <td>
+                        <button onclick="eliminarVenta(this)" data-id="@v.IdVenta" type="button" class="btn btn-outline-danger btnEliminar">&#10060;</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function eliminarVenta(btnEliminar) {
+        var idVenta = parseInt(btnEliminar.dataset.id);
+        venta.eliminarVenta(idVenta, urlEliminarVenta, urlObtenerVentas, urlObtenerTotalVenta);
+    }
+</script>

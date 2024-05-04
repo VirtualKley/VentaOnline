@@ -1,0 +1,71 @@
+﻿
+<script src="js/venta/venta.js"></script>
+
+<h1>Ventas</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <div id="RegistrarVenta"></div>
+    </div>
+    <div class="col-md-6">
+        <div id="TotalesVenta"></div>
+    </div>
+    <div class="col-md-12">
+        <div id="ListaVenta"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="miModalLabel">Agregar Cliente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombrePersona" placeholder="Ingrese su nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="celular" class="form-label">Celular</label>
+                            <input type="text" class="form-control" id="celularPersona" placeholder="Ingrese su número de celular">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="crearPersona">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        const urlObtenerVentas = '@Url.Action("ObtenerVentas", "Venta")';
+        const urlObtenerFormVenta = '@Url.Action("ObtenerFormVenta", "Venta")';
+        const urlCrearVentas = '@Url.Action("Create", "Venta")';
+        const urlEliminarVenta = '@Url.Action("Delete", "Venta")';
+        const urlCrearPersona = '@Url.Action("Create", "Persona")';
+        const urlObtenerTotalVenta = '@Url.Action("ObtenerTotalVenta", "Venta")';
+        var venta = new Venta();
+
+        $(document).ready(function () {
+            venta.obtenerFormVenta(urlObtenerFormVenta);
+            venta.obtenerVentas(urlObtenerVentas);
+            venta.obtenerTotalVenta(urlObtenerTotalVenta);
+        });
+
+        document.getElementById("crearPersona").addEventListener("click", () => venta.crearPersona(urlCrearPersona, urlObtenerFormVenta));
+
+    </script>
+}

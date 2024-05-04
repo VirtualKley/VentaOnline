@@ -1,0 +1,29 @@
+﻿@model List<VentaViewModel>
+<div style="height: 320px; overflow-y: scroll;">
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <td>Persona (@Model.Count())</td>
+                <td>Celular</td>
+                <td>Art. (@Model.Sum(v => v.Cantidad))</td>
+                <td>Total (@Model.Sum(v => v.Total))</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => v.Persona.Nombre)</td>
+                    <td>
+                        @if (v.Persona.Celular != null && v.Persona.Celular != "+593")
+                        {
+                            @Html.DisplayFor(m => v.Persona.Celular) <a href="https://wa.me/@v.Persona.Celular?text=Hola%20te%20saluda%20Jazmin%20del%20envivo%20me%20gustaria%20saber%20tu%20direccion%20para%20realizar%20la%20entrega" target="_blank">&#x260f;</a>
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(m => v.Cantidad)</td>
+                    <td>@((v.Total).ToString("C"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

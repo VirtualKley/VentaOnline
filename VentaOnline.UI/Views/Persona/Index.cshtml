@@ -1,0 +1,42 @@
+﻿@model List<PersonaViewModel>
+
+<h1>Clientes</h1>
+
+<a class="btn btn-success" asp-action="Create">Nuevo Cliente</a>
+
+<div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Nombre</td>
+                    <td>Celular</td>
+                    <td>Ventas</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var persona in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => persona.IdPersona)</td>
+                        <td>@Html.DisplayFor(m => persona.Nombre)</td>
+                        <td>@Html.DisplayFor(m => persona.Celular)</td>
+                        <td>@persona.ObtenerVentas(persona.Venta)</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@persona.IdPersona" class="btn btn-outline-warning">&#x270F;</a>
+                        </td>
+                        <td>
+                            <form asp-controller="Persona" asp-action="Delete" method="post">
+                                <input type="hidden" name="idPersona" value="@persona.IdPersona" />
+                                <button type="submit" class="btn btn-outline-danger">&#10060;</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
